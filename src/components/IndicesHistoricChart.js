@@ -39,41 +39,40 @@ class IndicesHistoricChart extends Component {
     }
 
     getPoints = (location) => {
-        let points = location['dynamic_index'].map((points, index) => ({x: index, y: points.y}));
-        console.log(points);
-        return points;
+        // to draw a line react-vis needs an array of objects with the following form:
+        // [
+        //     {x: val, y: val},
+        //     {x: val, y: val},
+        //     {x: val, y: val},
+        // ]
+
+        // here I use the index of the array as the XAxis value instead of the date
+        return location['dynamic_index']
+                .map((point, index) => ({x: index, y: point.y}));
     }
 
     render() {
         const { data } = this.state;
         return (
-            <XYPlot
-                width={500}
-                height={300}>
-                <HorizontalGridLines />
-                {
-                    data ? 
-                        Object.keys(data).map(locationId => {
-                            return <LineSeries 
-                                key={locationId} 
-                                data={this.getPoints(data[locationId])} />
-                        })
-                        : null
-                }
-                {/* <LineSeries data={[
-                {x: 0, y: 0},
-                {x: 1, y: 10},
-                {x: 3, y: 15}
-                ]} />
-                <LineSeries data={[
-                {x: 0, y: 5},
-                {x: 2, y: 10},
-                {x: 3, y: 2}
-                ]} />
-                */}
-                <XAxis />
-                <YAxis />
-            </XYPlot>
+            <div>
+                <h3>INDICE DE RIESGO</h3>
+                <XYPlot
+                    width={500}
+                    height={300}>
+                    <HorizontalGridLines />
+                    {
+                        data ? 
+                            Object.keys(data).map(locationId => {
+                                return <LineSeries 
+                                    key={locationId} 
+                                    data={this.getPoints(data[locationId])} />
+                            })
+                            : null
+                    }
+                    <XAxis title="Mes" />
+                    <YAxis title="Indice Interno"/>
+                </XYPlot>
+            </div>
         )
     }
 }

@@ -1,13 +1,99 @@
 @import "../node_modules/react-vis/dist/style.css";
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   padding: 100px 0;
+  background-color: #C7D1D2;
 }
 
 .container {
   width: 80%;
   margin: 0 auto;
+}
+
+.separator {
+  margin: 50px 0;
+}
+
+.card {
+  background-color: #F1F0F3;
+  border-radius: 7px;
+  box-shadow: 0px 2px 8px rgb(88, 88, 88);
+  width: 500px;
+  padding: 10px 20px;
+}
+
+.card .tag {
+  display: block;
+  color: #5A5B5D;
+  font-weight: bold;
+}
+
+.risk-indexes .tag {
+  text-transform: uppercase;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.risk-indexes .index-type {
+  color: #5A5B5D;
+  font-weight: bold;
+}
+
+.hourly-incidents {
+  height: 185px;
+}
+
+.hourly-incidents .hour-labels .rv-xy-plot__series--label-text {
+  fill: #807e7e;
+  font-weight: bold;
+}
+
+.line-chart-legend {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.line-chart-legend .rv-discrete-color-legend-item {
+  font-weight: bold;
+}
+
+.line-chart-legend.crimson .rv-discrete-color-legend-item {
+  color: rgb(224, 63, 96);
+}
+
+.line-chart-legend.goldenrod .rv-discrete-color-legend-item {
+  color: rgb(226, 178, 55);
+}
+
+.line-chart-legend .rv-discrete-color-legend-item__color {
+  position: relative;
+  width: 23px;
+  height: 2px;
+}
+
+.line-chart-legend .rv-discrete-color-legend-item__color:before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 7.5px;
+  background-color: #fff;
+  position: absolute;
+  top: -5px;
+  left: 5px;
+}
+
+.line-chart-legend.crimson .rv-discrete-color-legend-item__color:before {
+  border: 2px solid rgb(224, 63, 96);
+}
+
+.line-chart-legend.goldenrod .rv-discrete-color-legend-item__color:before {
+  border: 2px solid rgb(226, 178, 55);
 }

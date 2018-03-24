@@ -8,18 +8,33 @@ class App extends Component {
     super();
 
     this.state = {
-      locationIndex: null,
+      locs: ['ASHcU2IBmS_KBCrJjyWd'],
+      indexes: null,
       hourlyIncidents: null
     }
   }
+
   componentWillMount() {
-    const endpoint = '/incidents/by-hour';
-    const params = {
+    const indexesEndpoint = '/indices/historic';
+    const indexesParams = {
+      'locs': this.state.locs,
+      'index': ['structural', 'dynamic'],
+      'size': '100'
+    }
+
+    const incidentsEndpoint = '/incidents/by-hour';
+    const incidentsParams = {
       'locs': [],
       'filters': ['efv']
     }
 
-    requestChartData(endpoint, params)
+    requestChartData(indexesEndpoint, indexesParams)
+      .then(response => {
+        const locations = response.data;
+        this.setState({indexes: locations});
+      })
+
+    requestChartData(incidentsEndpoint, incidentsParams)
       .then(response => {
         const hours = response.data;
         this.setState({hourlyIncidents: hours});
@@ -27,28 +42,35 @@ class App extends Component {
   }
 
   render() {
-    const { locationIndex, hourlyIncidents } = this.state;
-    console.log(hourlyIncidents);
+    const { locs, indexes, hourlyIncidents } = this.state;
 
     return (
       <div className="container">
-        <div className="risk-indexes card">
-          <span className="tag">Indice de riesgo</span>
-          <IndicesHistoricChart 
-            width={450}
-            height={150}
-            title="Indice Interno"
-            color="crimson"
-            type="structural"
-            labelTitle="Nacional" />
-          <IndicesHistoricChart 
-            width={450}
-            height={150}
-            title="Indice Institucional"
-            color="goldenrod"
-            type="dynamic"
-            labelTitle="Institucional" />
-        </div>
+        {
+          indexes 
+            ? <div className="risk-indexes card">
+                <span className="tag">Indice de riesgo</span>
+                <IndicesHistoricChart 
+                  width={450}
+                  height={150}
+                  title="Indice Interno"
+                  color="crimson"
+                  type="structural"
+                  labelTitle="Nacional"
+                  data={indexes}
+                  locs={locs} />
+                <IndicesHistoricChart 
+                  width={450}
+                  height={150}
+                  title="Indice Institucional"
+                  color="goldenrod"
+                  type="dynamic"
+                  labelTitle="Institucional"
+                  data={indexes}
+                  locs={locs} />
+              </div>
+            : null
+        }
         <div className="separator"></div>
         {
           hourlyIncidents

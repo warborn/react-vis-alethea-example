@@ -7,34 +7,10 @@ import {
     LineSeries,
     DiscreteColorLegend
   } from 'react-vis';
-  import { requestChartData, getMonthName } from '../utils';
+  import { getMonthName } from '../utils';
 
 class IndicesHistoricChart extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      data: {},
-      locs: ['ASHcU2IBmS_KBCrJjyWd']
-    }
-  }
-
-  componentWillMount() {;
-    const endpoint = '/indices/historic';
-    const params = {
-      'locs': this.state.locs,
-      'index': ['structural', 'dynamic'],
-      'size': '100'
-    }
-
-    requestChartData(endpoint, params)
-      .then(response => {
-        const locations = response.data;
-        this.setState({data: locations});
-      })
-  }
-
-  getPoints = (location) => {
+  _getPoints = (location) => {
     // to draw a line react-vis needs an array of objects with the following form:
     // [
     //     {x: val, y: val},
@@ -48,14 +24,14 @@ class IndicesHistoricChart extends Component {
   }
 
   render() {
-    const { data, locs } = this.state;
-    const tickValues = ['2018-01-01 00:00:00', '2018-02-01 00:00:00', '2018-03-01 00:00:00', '2018-04-01 00:00:00', '2018-05-01 00:00:00',];
+    const { data } = this.props;
+
     return (
       <div>
         <span className="index-type">{this.props.title}</span>
         <DiscreteColorLegend 
-          width={110}
-          items={[{title: 'Nacional', color: this.props.color}]}
+          width={130}
+          items={[{title: this.props.labelTitle, color: this.props.color}]}
           className={`line-chart-legend ${this.props.color}`} />
         <XYPlot
           width={this.props.width}
@@ -63,15 +39,12 @@ class IndicesHistoricChart extends Component {
           >
           <HorizontalGridLines />
           {
-            data ? 
-              Object.keys(data).map(locationId => {
-    
-                return <LineSeries 
-                  key={locationId} 
-                  data={this.getPoints(data[locationId])}
-                  color={this.props.color} />
-              })
-              : null
+            Object.keys(data).map(locationId => {
+              return <LineSeries 
+                key={locationId} 
+                data={this._getPoints(data[locationId])}
+                color={this.props.color} />
+            })
           }
           <XAxis />
           <YAxis />

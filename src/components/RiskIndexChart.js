@@ -9,7 +9,7 @@ import {
   } from 'react-vis';
   import { getMonthName } from '../utils';
 
-class IndicesHistoricChart extends Component {
+class RiskIndexChart extends Component {
   _getPoints = (location) => {
     // to draw a line react-vis needs an array of objects with the following form:
     // [
@@ -54,4 +54,4 @@ class IndicesHistoricChart extends Component {
   }
 }
 
-export default IndicesHistoricChart;
+export default RiskIndexChart;

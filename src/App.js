@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import IndicesHistoricChart from './components/IndicesHistoricChart';
+import RiskIndexChart from './components/RiskIndexChart';
 import HourlyIncidentsChart from './components/HourlyIncidentsChart';
 import { requestChartData } from './utils';
 
@@ -50,7 +50,7 @@ class App extends Component {
           indexes 
             ? <div className="risk-indexes card">
                 <span className="tag">Indice de riesgo</span>
-                <IndicesHistoricChart 
+                <RiskIndexChart 
                   width={450}
                   height={150}
                   title="Indice Interno"
@@ -59,7 +59,7 @@ class App extends Component {
                   labelTitle="Nacional"
                   data={indexes}
                   locs={locs} />
-                <IndicesHistoricChart 
+                <RiskIndexChart 
                   width={450}
                   height={150}
                   title="Indice Institucional"

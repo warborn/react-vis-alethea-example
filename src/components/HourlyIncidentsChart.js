@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
     XYPlot,
     MarkSeries,
@@ -86,6 +87,12 @@ class HourlyIncidentsChart extends Component {
       </div>
     )
   }
+}
+
+HourlyIncidentsChart.propTypes = {
+  data: PropTypes.array.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired
 }
 
 export default HourlyIncidentsChart;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import RiskIndexChart from './components/RiskIndexChart';
-import HourlyIncidentsChart from './components/HourlyIncidentsChart';
+import LeftPanel from './components/LeftPanel';
+import RightPanel from './components/RightPanel';
 import { requestChartData } from './utils';
 
 class App extends Component {
@@ -8,81 +8,98 @@ class App extends Component {
     super();
 
     this.state = {
-      locs: ['ASHcU2IBmS_KBCrJjyWd'],
-      indexes: null,
-      hourlyIncidents: null
+      leftPanelData: null,
+      hourlyIncidents: null,
+      defaultLocation: '-DDVaGIBAxn0xNdLGPhn', // country: mexico
+      selectedLocation: null,
+      indexTypes: new Set(),
+      rightPanelData: null
     }
   }
 
   componentWillMount() {
-    const indexesEndpoint = '/indices/historic';
-    const indexesParams = {
-      'locs': this.state.locs,
-      'index': ['structural', 'dynamic'],
-      'size': '100'
-    }
-
-    const incidentsEndpoint = '/incidents/by-hour';
-    const incidentsParams = {
-      'locs': [],
-      'filters': ['efv']
-    }
-
-    requestChartData(indexesEndpoint, indexesParams)
+    // request to fill the charts on the left panel
+    requestChartData('/indices/historic', {
+        'locs': this.state.defaultLocation,
+        'index': ['structural', 'dynamic'],
+        'size': '12'
+      })
       .then(response => {
-        const locations = response.data;
-        this.setState({indexes: locations});
+        const locations = response;
+        this.setState({leftPanelData: locations});
       })
 
-    requestChartData(incidentsEndpoint, incidentsParams)
+    requestChartData('/incidents/by-hour', {
+        'locs': [],
+        'filters': ['efv']
+      })
       .then(response => {
         const hours = response.data;
         this.setState({hourlyIncidents: hours});
       })
+
+    // requests to fill the chart on the right panel
+    requestChartData('/indices/historic', {
+      'locs': this.state.defaultLocation,
+      'index': ['structural', 'dynamic'],
+      'size': '12'
+    })
+    .then(response => {
+      const locations = response;
+      this.setState({rightPanelData: locations});
+    })
+  }
+
+  updateSelectedLocation= (locationId) => {
+    let currentData = {...this.state.rightPanelData};
+    this.getLocationData(locationId)
+      .then(response => {
+        this.setState({
+          selectedLocation: locationId,
+          rightPanelData: {...currentData, ...response}
+        })
+      });
+  }
+  
+  updateSelectedIndex = (indexType, action) => {
+    let updatedIndexTypes = new Set(this.state.indexTypes);
+    if(action === 'add') {
+      updatedIndexTypes.add(indexType);
+    } else if(action === 'delete') {
+      updatedIndexTypes.delete(indexType);
+    }
+    this.setState({indexTypes: updatedIndexTypes});
+  }
+
+  getLocationData = (locationId) => {
+    return requestChartData('/indices/historic', {
+      'locs': [locationId],
+      'index': ['structural', 'dynamic'],
+      'size': '12'
+    });
   }
 
   render() {
-    const { locs, indexes, hourlyIncidents } = this.state;
+    const { 
+      leftPanelData, 
+      hourlyIncidents,
+      indexTypes, 
+      rightPanelData,
+      selectedLocation,
+      defaultLocation 
+    } = this.state;
 
     return (
       <div className="container">
-        {
-          indexes 
-            ? <div className="risk-indexes card">
-                <span className="tag">Indice de riesgo</span>
-                <RiskIndexChart 
-                  width={450}
-                  height={150}
-                  title="Indice Interno"
-                  color="crimson"
-                  type="structural"
-                  labelTitle="Nacional"
-                  data={indexes}
-                  locs={locs} />
-                <RiskIndexChart 
-                  width={450}
-                  height={150}
-                  title="Indice Institucional"
-                  color="goldenrod"
-                  type="dynamic"
-                  labelTitle="Institucional"
-                  data={indexes}
-                  locs={locs} />
-              </div>
-            : null
-        }
-        <div className="separator"></div>
-        {
-          hourlyIncidents
-            ? <div className="hourly-incidents card">
-                <span className="tag">Incidentes/Hora</span>
-                <HourlyIncidentsChart 
-                  width={450}
-                  height={150}
-                  data={hourlyIncidents} />
-              </div>
-            : null
-        }
+        <LeftPanel 
+          chartData={leftPanelData}
+          hourlyIncidents={hourlyIncidents} />
+        <RightPanel
+          indexTypes={indexTypes}
+          chartData={rightPanelData}
+          selectedLocations={[defaultLocation].concat(selectedLocation || [])}
+          updateSelectedLocation={this.updateSelectedLocation}
+          updateSelectedIndex={this.updateSelectedIndex} />
       </div>
     );
   }

@@ -26,11 +26,14 @@ export function capitalize(str) {
   return str[0].toUpperCase() + str.slice(1);
 }
 
-export function getMonthName(dateString) {
-  console.log(dateString);
+export function getMonthName(dateNumber) {
+  const dateString = dateNumber;
   const date = new Date(dateString);
   const locale = 'es-mx';
   const month = date.toLocaleDateString(locale, {month: 'long'});
-  console.log(month);
   return capitalize(month);
+}
+
+export function stripPosfix(str) {
+  return str.replace(/_[a-z0-9]+$/i, '');
 }

@@ -13,8 +13,20 @@ body {
 }
 
 .container {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.left-panel {
+  flex: 1;
+}
+
+.right-panel {
+  flex: 2;
+  margin-left: 50px;
 }
 
 .separator {
@@ -25,7 +37,6 @@ body {
   background-color: #F1F0F3;
   border-radius: 7px;
   box-shadow: 0px 2px 8px rgb(88, 88, 88);
-  width: 500px;
   padding: 10px 20px;
 }
 
@@ -64,13 +75,13 @@ body {
   font-weight: bold;
 }
 
-.line-chart-legend.crimson .rv-discrete-color-legend-item {
+/* .line-chart-legend.crimson .rv-discrete-color-legend-item {
   color: rgb(224, 63, 96);
 }
 
 .line-chart-legend.goldenrod .rv-discrete-color-legend-item {
   color: rgb(226, 178, 55);
-}
+} */
 
 .line-chart-legend .rv-discrete-color-legend-item__color {
   position: relative;
@@ -90,10 +101,10 @@ body {
   left: 5px;
 }
 
-.line-chart-legend.crimson .rv-discrete-color-legend-item__color:before {
+/* .line-chart-legend.crimson .rv-discrete-color-legend-item__color:before {
   border: 2px solid rgb(224, 63, 96);
 }
 
 .line-chart-legend.goldenrod .rv-discrete-color-legend-item__color:before {
   border: 2px solid rgb(226, 178, 55);
-}
+} */

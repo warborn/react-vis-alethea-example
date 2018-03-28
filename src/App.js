@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
       leftPanelData: null,
       hourlyIncidents: null,
-      defaultLocation: '-DDVaGIBAxn0xNdLGPhn', // country: mexico
+      defaultLocation: 'G2v0Y2IB8PNQDz_VD3nf', // country: mexico
       selectedLocation: null,
       indexTypes: new Set(),
       rightPanelData: null

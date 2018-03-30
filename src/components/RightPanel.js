@@ -1,9 +1,10 @@
 import React from 'react';
 import RiskIndexChart from './RiskIndexChart';
-import RiskIndexOptions from './RiskIndexOptions';
+import RiskIndexOptions from './RiskIndexOptions'
+import IncidentsByCrimeChart from './IncidentsByCrimeChart';
 
 const RightPanel = (props) => {
-  const { chartData, indexTypes, selectedLocations } = props;
+  const { chartData, indexTypes, selectedLocations, selectedCrimes, incidentsByCrimeData } = props;
 
   return (
     <div className="right-panel">
@@ -14,13 +15,24 @@ const RightPanel = (props) => {
       {
         chartData 
           ? <div className="risk-indexes card">
-              <span className="tag">Indice de riesgo</span>
               <RiskIndexChart 
                 width={800}
                 height={200}
                 indexTypes={[...indexTypes]}
                 data={chartData}
                 selectedLocations={selectedLocations} />
+            </div>
+          : null
+      }
+      {
+        incidentsByCrimeData
+          ? <div className="risk-indexes card">
+              <IncidentsByCrimeChart 
+                width={800}
+                height={200}
+                data={incidentsByCrimeData}
+                selectedLocations={['xDDVaGIBAxn0xNdL4Prk']}
+                crimeTypes={[...selectedCrimes]} />
             </div>
           : null
       }

@@ -10,10 +10,13 @@ class App extends Component {
     this.state = {
       leftPanelData: null,
       hourlyIncidents: null,
-      defaultLocation: 'G2v0Y2IB8PNQDz_VD3nf', // country: mexico
+      // defaultLocation: 'G2v0Y2IB8PNQDz_VD3nf', // country: mexico
+      defaultLocation: '-DDVaGIBAxn0xNdLGPhn',
       selectedLocation: null,
+      selectedCrimes: new Set(['robbery without violence', 'kidnapping']),
       indexTypes: new Set(),
-      rightPanelData: null
+      rightPanelData: null,
+      incidentsByCrimeData: null
     }
   }
 
@@ -45,8 +48,15 @@ class App extends Component {
       'size': '12'
     })
     .then(response => {
-      const locations = response;
-      this.setState({rightPanelData: locations});
+      this.setState({rightPanelData: response});
+    })
+
+    requestChartData('/incidents/historic', {
+      'locs': ['xDDVaGIBAxn0xNdL4Prk', '2DDVaGIBAxn0xNdLfvl2'],
+      'filters': ['robbery without violence', 'kidnapping']
+    })
+    .then(response => {
+      this.setState({incidentsByCrimeData: response})
     })
   }
 
@@ -85,8 +95,10 @@ class App extends Component {
       hourlyIncidents,
       indexTypes, 
       rightPanelData,
+      incidentsByCrimeData,
       selectedLocation,
-      defaultLocation 
+      selectedCrimes,
+      defaultLocation
     } = this.state;
 
     return (
@@ -97,6 +109,8 @@ class App extends Component {
         <RightPanel
           indexTypes={indexTypes}
           chartData={rightPanelData}
+          incidentsByCrimeData={incidentsByCrimeData}
+          selectedCrimes={selectedCrimes}
           selectedLocations={[defaultLocation].concat(selectedLocation || [])}
           updateSelectedLocation={this.updateSelectedLocation}
           updateSelectedIndex={this.updateSelectedIndex} />

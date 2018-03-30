@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-// export const HOST = 'https://localhost:5001/api';
-export const HOST = 'https://alethea.abraxasintelligence.com/api';
+export const HOST = 'http://localhost:5001/api';
+// export const HOST = 'https://alethea.abraxasintelligence.com/api';
 // override with your own token
-export const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiJmMjlmNGZiNy1mYjM5LTQ5ZDItYmExOS1iMDA0ZmZiMjM4YjEiLCJzZWNyZXQiOiJiZDZhMGIyZi02ZDM3LTRjZDEtODYzMC1kN2M0OGZhMzNlOGUiLCJpYXQiOjE1MjIyNzY2OTYsImV4cCI6MTUyMjg4MTQ5Nn0.-Ixy4LIuGw6HErQdOrzAExLS7OV7Sa5CvhVNLvxVZSY';
+export const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiIwNzY0NDc3Yi05MTg3LTQyYmUtYjI2MC1mOGExMTlhMmRlMDciLCJzZWNyZXQiOiJlM2U2YzZhMy1hODBhLTQwYzMtOTI0OS1hOTI5NTkwNzFjNDIiLCJpYXQiOjE1MjI0MjkzNzMsImV4cCI6MTUyMzAzNDE3M30.RVyMCGcn8hbxBZv2VxDVv6gDkJlWfpfBs0huMisKBz0';
 
 export function objectToQueryString(params) {
   return Object.keys(params).map(key => `${key}=${params[key]}`).join('&');

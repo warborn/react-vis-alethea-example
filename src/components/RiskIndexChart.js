@@ -86,7 +86,7 @@ class RiskIndexChart extends Component {
               .filter(this._filterSelectedLocations)
               .map(this.renderLocation)
           }
-          <XAxis tickFormat={v => getMonthName(v)} tickTotal={12} tickLabelAngle={0-60} />
+          <XAxis tickFormat={v => getMonthName(v)} tickTotal={9} tickLabelAngle={0-60} />
           <YAxis />
         </XYPlot>
       </div>

@@ -113,3 +113,8 @@ body {
 .line-chart-legend.goldenrod .rv-discrete-color-legend-item__color:before {
   border: 2px solid rgb(226, 178, 55);
 } */
+
+.rv-discrete-color-legend-item__color {
+  height: 10px;
+  width: 10px;
+}

@@ -21,7 +21,8 @@ const RightPanel = (props) => {
                 indexTypes={[...indexTypes]}
                 data={chartData}
                 selectedLocations={selectedLocations}
-                colors={colors} />
+                colors={colors}
+                multipleIndexes={true} />
             </div>
           : null
       }

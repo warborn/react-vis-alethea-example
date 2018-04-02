@@ -29,14 +29,32 @@ class RiskIndexChart extends Component {
   }
 
   _getLabels(data) {
-    return Object
+    let filteredLocations = 
+      Object
       .keys(data)
-      .filter(this._filterSelectedLocations)
+      .filter(this._filterSelectedLocations);
+  
+    if(this.props.multipleIndexes) {
+      return filteredLocations
+        .reduce((items, locationId) => {
+          let { name } = data[locationId];
+          
+          let labels = Object
+            .keys(data[locationId].indices)
+            .map(indexType => ({
+              title: `${name} (${indexType === 'dynamic_index' ? 'Interno' : 'Institucional'})`,
+              color: this.props.colors[locationId]['indices'][indexType]
+            }));
+          return items.concat(labels);
+        }, []);
+    }
+    
+    return filteredLocations
       .map((locationId) => {
         let { name } = data[locationId];
         return {
           title: name,
-          color: this.props.colors[locationId]['indices']['structural_index']
+          color: this.props.colors[locationId]['indices'][`${this.props.indexTypes[0]}_index`]
         }
       });
   }
@@ -65,13 +83,14 @@ class RiskIndexChart extends Component {
   render() {
     const { data } = this.props;
     const items = this._getLabels(data);
+    const legendMultiplier = this.props.multipleIndexes ? 2 : 1;
 
     return (
       <div>
         <span className="index-type">{this.props.title}</span>
         <DiscreteColorLegend 
           orientation="horizontal"
-          width={130 * items.length}
+          width={130 * items.length * legendMultiplier}
           items={items}
            />
         <XYPlot
@@ -99,7 +118,12 @@ RiskIndexChart.propTypes = {
   selectedLocations: PropTypes.array,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
+  multipleIndexes: PropTypes.bool
 };
+
+RiskIndexChart.defaultProps = {
+  multipleIndexes: false
+}
 
 export default RiskIndexChart;

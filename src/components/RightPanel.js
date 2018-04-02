@@ -4,7 +4,7 @@ import RiskIndexOptions from './RiskIndexOptions'
 import IncidentsByCrimeChart from './IncidentsByCrimeChart';
 
 const RightPanel = (props) => {
-  const { chartData, indexTypes, selectedLocations, selectedCrimes, incidentsByCrimeData } = props;
+  const { colors, chartData, indexTypes, selectedLocations, selectedCrimes, incidentsByCrimeData } = props;
 
   return (
     <div className="right-panel">
@@ -13,14 +13,15 @@ const RightPanel = (props) => {
         updateSelectedLocation={props.updateSelectedLocation}
         updateSelectedIndex={props.updateSelectedIndex} />
       {
-        chartData 
+        chartData
           ? <div className="risk-indexes card">
               <RiskIndexChart 
                 width={800}
                 height={200}
                 indexTypes={[...indexTypes]}
                 data={chartData}
-                selectedLocations={selectedLocations} />
+                selectedLocations={selectedLocations}
+                colors={colors} />
             </div>
           : null
       }
@@ -32,7 +33,8 @@ const RightPanel = (props) => {
                 height={200}
                 data={incidentsByCrimeData}
                 selectedLocations={['xDDVaGIBAxn0xNdL4Prk']}
-                crimeTypes={[...selectedCrimes]} />
+                crimeTypes={[...selectedCrimes]}
+                colors={colors} />
             </div>
           : null
       }

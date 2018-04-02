@@ -24,17 +24,17 @@ class RiskIndexOptions extends Component {
           <option value="HGv0Y2IB8PNQDz_VEHkU">Aguascalientes</option>
           <option value="FGv1Y2IB8PNQDz_VVH3n">Oaxaca</option> */}
 
-          <option value="-DDVaGIBAxn0xNdLGPhn">Ciudad De México</option>
+          <option value="2DDVaGIBAxn0xNdLfvl2">Ciudad De México</option>
           <option value="-TDVaGIBAxn0xNdLGPjM">Aguascalientes</option>
         </select>
         <Checkbox
             label="Indice Interno"
             handleCheckboxChange={this.toggleCheckbox}
-            value="dynamic" />
+            value="structural" />
         <Checkbox
             label="Indice Externo"
             handleCheckboxChange={this.toggleCheckbox}
-            value="structural" />
+            value="dynamic" />
       </form>
     )
   }

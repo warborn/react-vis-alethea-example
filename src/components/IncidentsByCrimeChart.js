@@ -38,7 +38,7 @@ class IncidentsByCrimeChart extends Component {
 					.keys(data[locationId].incidents)
 					.map(crimeType => ({
 						title: `${crimeType} (${name.toUpperCase()})`,
-						color: this.colors[crimeType]
+						color: this.props.colors[locationId]['incidents'][crimeType]
 					}));
 				return items.concat(labels);
       }, []);
@@ -55,7 +55,7 @@ class IncidentsByCrimeChart extends Component {
 
 	renderMarkSeries = (locationId, crimeType) => {
 		let location = this.props.data[locationId];
-		let color = this.colors[crimeType];
+		let color = this.props.colors[locationId]['incidents'][crimeType];
 
 		return (
 			<MarkSeries

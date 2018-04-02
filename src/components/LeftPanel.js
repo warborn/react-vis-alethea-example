@@ -3,11 +3,11 @@ import RiskIndexChart from './RiskIndexChart';
 import HourlyIncidentsChart from './HourlyIncidentsChart';
 
 const LeftPanel = (props) => {
-  const { chartData, hourlyIncidents } = props;
+  const { colors, chartData, hourlyIncidents } = props;
   return (
     <div className="left-panel">
       {
-        chartData 
+        chartData
           ? <div className="risk-indexes card">
               <span className="tag">Indice de riesgo</span>
               <RiskIndexChart 
@@ -15,13 +15,15 @@ const LeftPanel = (props) => {
                 height={150}
                 title="Indice Interno"
                 indexTypes={["structural"]}
-                data={chartData} />
+                data={chartData}
+                colors={colors} />
               <RiskIndexChart 
                 width={450}
                 height={150}
                 title="Indice Institucional"
                 indexTypes={["dynamic"]}
-                data={chartData} />
+                data={chartData}
+                colors={colors} />
             </div>
           : null
       }

@@ -24,6 +24,39 @@ export function requestChartData(endpoint, params) {
     });
 }
 
+export function generateColors(existingColors, data) {
+  let colors = {...existingColors};
+  Object
+    .keys(data)
+    .forEach(locationId => {
+      if(!colors[locationId]) {
+        colors[locationId] = {}
+      }
+      Object
+        .keys(data[locationId] || {})
+        .filter(key => ['indices', 'incidents'].includes(key))
+        .forEach(locationKey => {
+          if(!colors[locationId][locationKey]) {
+            colors[locationId][locationKey] = {}
+          }
+
+          Object
+            .keys(data[locationId][locationKey] || {})
+            .forEach(locationSubKey => {
+              if(!colors[locationId][locationKey][locationSubKey]) {
+                colors[locationId][locationKey][locationSubKey] = generateColor();
+              }
+            })
+        })
+    });
+  return colors;
+}
+
+export function generateColor() {
+  let color = Math.floor(0x1000000 * Math.random()).toString(16);
+  return '#' + ('000000' + color).slice(-6);
+}
+
 export function capitalize(str) {
   return str[0].toUpperCase() + str.slice(1);
 }

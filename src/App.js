@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LeftPanel from './components/LeftPanel';
 import RightPanel from './components/RightPanel';
-import { requestChartData } from './utils';
+import { requestChartData, generateColors } from './utils';
 
 class App extends Component {
   constructor() {
@@ -16,7 +16,8 @@ class App extends Component {
       selectedCrimes: new Set(['robbery without violence', 'kidnapping']),
       indexTypes: new Set(),
       rightPanelData: null,
-      incidentsByCrimeData: null
+      incidentsByCrimeData: null,
+      colors: {}
     }
   }
 
@@ -28,8 +29,8 @@ class App extends Component {
         'size': '12'
       })
       .then(response => {
-        const locations = response;
-        this.setState({leftPanelData: locations});
+        let newColors = generateColors(this.state.colors, response);
+        this.setState({leftPanelData: response, colors: newColors});
       })
 
     requestChartData('/incidents/by-hour', {
@@ -48,7 +49,8 @@ class App extends Component {
       'size': '12'
     })
     .then(response => {
-      this.setState({rightPanelData: response});
+      let newColors = generateColors(this.state.colors, response);
+      this.setState({rightPanelData: response, colors: newColors});
     })
 
     requestChartData('/incidents/historic', {
@@ -56,7 +58,8 @@ class App extends Component {
       'filters': ['robbery without violence', 'kidnapping']
     })
     .then(response => {
-      this.setState({incidentsByCrimeData: response})
+      let newColors = generateColors(this.state.colors, response);
+      this.setState({incidentsByCrimeData: response, colors: newColors})
     })
   }
 
@@ -64,9 +67,11 @@ class App extends Component {
     let currentData = {...this.state.rightPanelData};
     this.getLocationData(locationId)
       .then(response => {
+        let newColors = generateColors(this.state.colors, response);
         this.setState({
           selectedLocation: locationId,
-          rightPanelData: {...currentData, ...response}
+          rightPanelData: {...currentData, ...response},
+          colors: newColors
         })
       });
   }
@@ -91,6 +96,7 @@ class App extends Component {
 
   render() {
     const { 
+      colors,
       leftPanelData, 
       hourlyIncidents,
       indexTypes, 
@@ -105,7 +111,8 @@ class App extends Component {
       <div className="container">
         <LeftPanel 
           chartData={leftPanelData}
-          hourlyIncidents={hourlyIncidents} />
+          hourlyIncidents={hourlyIncidents}
+          colors={colors} />
         <RightPanel
           indexTypes={indexTypes}
           chartData={rightPanelData}
@@ -113,7 +120,8 @@ class App extends Component {
           selectedCrimes={selectedCrimes}
           selectedLocations={[defaultLocation].concat(selectedLocation || [])}
           updateSelectedLocation={this.updateSelectedLocation}
-          updateSelectedIndex={this.updateSelectedIndex} />
+          updateSelectedIndex={this.updateSelectedIndex}
+          colors={colors} />
       </div>
     );
   }

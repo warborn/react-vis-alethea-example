@@ -9,7 +9,6 @@ import {
     DiscreteColorLegend
   } from 'react-vis';
 import { getMonthName, stripPosfix } from '../utils';
-import { COLORS } from '../colors';
 
 class RiskIndexChart extends Component {
   _mapArrayToPoints = (array) => {
@@ -37,7 +36,7 @@ class RiskIndexChart extends Component {
         let { name } = data[locationId];
         return {
           title: name,
-          color: COLORS[name]['structural_index']
+          color: this.props.colors[locationId]['indices']['structural_index']
         }
       });
   }
@@ -53,7 +52,7 @@ class RiskIndexChart extends Component {
 
   renderLineSeries = (locationId, indexType) => {
     let location = this.props.data[locationId];
-    let color = COLORS[location.name][indexType];
+    let color = this.props.colors[locationId]['indices'][indexType];
 
     return (
       <LineSeries 

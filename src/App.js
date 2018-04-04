@@ -11,7 +11,7 @@ class App extends Component {
       leftPanelData: null,
       hourlyIncidents: null,
       // defaultLocation: 'CkbQjGIBu6PdcGK86-B9', // country: mexico
-      defaultLocation: 'C_W8cmIB8f5ZIvUT_eF2',
+      defaultLocation: 'DBNOkmIBqBJkAKqCEWkK',
       selectedLocation: null,
       selectedCrimes: new Set(['robbery without violence', 'kidnapping']),
       indexTypes: new Set(),
@@ -56,7 +56,7 @@ class App extends Component {
 
     requestChartData('/incidents/historic', {
       // 'locs': ['1kbRjGIBu6PdcGK8sOH-', '2DDVaGIBAxn0xNdLfvl2'],
-      'locs': ['6_W-cmIB8f5ZIvUTBuHU'],
+      'locs': ['7BNOkmIBqBJkAKqCgWl0'],
       'filters': ['robbery without violence', 'kidnapping']
     })
     .then(response => {

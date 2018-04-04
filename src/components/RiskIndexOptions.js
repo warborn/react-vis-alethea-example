@@ -24,8 +24,8 @@ class RiskIndexOptions extends Component {
           <option value="C0bQjGIBu6PdcGK86-DT">Aguascalientes</option>
           <option value="BEbSjGIBu6PdcGK8i-S4">Oaxaca</option> */}
 
-          <option value="6_W-cmIB8f5ZIvUTBuHU">Ciudad De México</option>
-          <option value="DPW8cmIB8f5ZIvUT_-Eh">Aguascalientes</option>
+          <option value="7BNOkmIBqBJkAKqCgWl0">Ciudad De México</option>
+          <option value="DRNOkmIBqBJkAKqCEml9">Aguascalientes</option>
         </select>
         <Checkbox
             label="Indice Interno"

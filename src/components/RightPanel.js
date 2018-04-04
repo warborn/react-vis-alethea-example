@@ -34,7 +34,7 @@ const RightPanel = (props) => {
                 height={200}
                 data={incidentsByCrimeData}
                 // selectedLocations={['1kbRjGIBu6PdcGK8sOH-']}
-                selectedLocations={['6_W-cmIB8f5ZIvUTBuHU']}
+                selectedLocations={['7BNOkmIBqBJkAKqCgWl0']}
                 crimeTypes={[...selectedCrimes]}
                 colors={colors} />
             </div>

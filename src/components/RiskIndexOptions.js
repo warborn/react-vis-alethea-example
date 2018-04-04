@@ -20,12 +20,12 @@ class RiskIndexOptions extends Component {
       <form>
         <select defaultValue=""name="location" onChange={this.handleSelectOnChange}>
           <option value="" disabled>Select a location</option>
-          {/* <option value="-2v0Y2IB8PNQDz_VS3ks">Ciudad De México</option>
-          <option value="HGv0Y2IB8PNQDz_VEHkU">Aguascalientes</option>
-          <option value="FGv1Y2IB8PNQDz_VVH3n">Oaxaca</option> */}
+          {/* <option value="6kbRjGIBu6PdcGK8SuAY">Ciudad De México</option>
+          <option value="C0bQjGIBu6PdcGK86-DT">Aguascalientes</option>
+          <option value="BEbSjGIBu6PdcGK8i-S4">Oaxaca</option> */}
 
-          <option value="2DDVaGIBAxn0xNdLfvl2">Ciudad De México</option>
-          <option value="-TDVaGIBAxn0xNdLGPjM">Aguascalientes</option>
+          <option value="6_W-cmIB8f5ZIvUTBuHU">Ciudad De México</option>
+          <option value="DPW8cmIB8f5ZIvUT_-Eh">Aguascalientes</option>
         </select>
         <Checkbox
             label="Indice Interno"

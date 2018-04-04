@@ -10,8 +10,8 @@ class App extends Component {
     this.state = {
       leftPanelData: null,
       hourlyIncidents: null,
-      // defaultLocation: 'G2v0Y2IB8PNQDz_VD3nf', // country: mexico
-      defaultLocation: '-DDVaGIBAxn0xNdLGPhn',
+      // defaultLocation: 'CkbQjGIBu6PdcGK86-B9', // country: mexico
+      defaultLocation: 'C_W8cmIB8f5ZIvUT_eF2',
       selectedLocation: null,
       selectedCrimes: new Set(['robbery without violence', 'kidnapping']),
       indexTypes: new Set(),
@@ -33,7 +33,8 @@ class App extends Component {
         this.setState({leftPanelData: response, colors: newColors});
       })
 
-    requestChartData('/incidents/by-hour', {
+    requestChartData('/incidents/stats', {
+        'group-by': 'hour',
         'locs': [],
         'filters': ['efv']
       })
@@ -54,7 +55,8 @@ class App extends Component {
     })
 
     requestChartData('/incidents/historic', {
-      'locs': ['xDDVaGIBAxn0xNdL4Prk', '2DDVaGIBAxn0xNdLfvl2'],
+      // 'locs': ['1kbRjGIBu6PdcGK8sOH-', '2DDVaGIBAxn0xNdLfvl2'],
+      'locs': ['6_W-cmIB8f5ZIvUTBuHU'],
       'filters': ['robbery without violence', 'kidnapping']
     })
     .then(response => {

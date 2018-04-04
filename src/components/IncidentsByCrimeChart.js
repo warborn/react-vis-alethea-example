@@ -10,14 +10,6 @@ import {
 import { getMonthName } from '../utils';
 
 class IncidentsByCrimeChart extends Component {
-	constructor() {
-		super();
-
-		this.colors = {
-			'robbery without violence': '#2B76C0',
-			'kidnapping': '#5BDCFF',
-		};
-	}
 	_mapArrayToPoints = (array) => {
 		return array.map(point => ({x: new Date(point.x), y: point.y, size: 1}))
 	}
@@ -76,7 +68,7 @@ class IncidentsByCrimeChart extends Component {
 			<div>
 				<DiscreteColorLegend 
 					orientation="horizontal"
-					width={180 * items.length} 
+					width={250 * items.length} 
 					items={items} />
 				<XYPlot
 					width={this.props.width}
@@ -97,7 +89,7 @@ class IncidentsByCrimeChart extends Component {
 }
 
 IncidentsByCrimeChart.propTypes = {
-	data: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
   selectedLocations: PropTypes.array,
   crimeTypes: PropTypes.array.isRequired,
   width: PropTypes.number.isRequired,

@@ -34,7 +34,7 @@ class RiskIndexChart extends Component {
       .keys(data)
       .filter(this._filterSelectedLocations);
   
-    if(this.props.multipleIndexes) {
+    if(this.props.multipleIndexes && this.props.indexTypes.length > 1) {
       return filteredLocations
         .reduce((items, locationId) => {
           let { name } = data[locationId];

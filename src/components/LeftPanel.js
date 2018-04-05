@@ -1,9 +1,9 @@
 import React from 'react';
 import RiskIndexChart from './RiskIndexChart';
-import HourlyIncidentsChart from './HourlyIncidentsChart';
+import IncidentsChart from './IncidentsChart';
 
 const LeftPanel = (props) => {
-  const { colors, chartData, hourlyIncidents } = props;
+  const { colors, chartData, hourlyIncidents, dailyIncidents } = props;
   return (
     <div className="left-panel">
       {
@@ -32,10 +32,23 @@ const LeftPanel = (props) => {
         hourlyIncidents
           ? <div className="hourly-incidents card">
               <span className="tag">Incidentes/Hora</span>
-              <HourlyIncidentsChart 
+              <IncidentsChart 
                 width={450}
                 height={150}
-                data={hourlyIncidents} />
+                data={hourlyIncidents}
+                type={'hourly'} />
+            </div>
+          : null
+      }
+      {
+        dailyIncidents
+          ? <div className="hourly-incidents card">
+              <span className="tag">Incidentes/Día</span>
+              <IncidentsChart 
+                width={450}
+                height={150}
+                data={dailyIncidents}
+                type={'daily'} />
             </div>
           : null
       }

@@ -10,6 +10,7 @@ class App extends Component {
     this.state = {
       leftPanelData: null,
       hourlyIncidents: null,
+      dailyIncidents: null,
       // defaultLocation: 'CkbQjGIBu6PdcGK86-B9', // country: mexico
       defaultLocation: 'DBNOkmIBqBJkAKqCEWkK',
       selectedLocation: null,
@@ -41,6 +42,16 @@ class App extends Component {
       .then(response => {
         const hours = response.data;
         this.setState({hourlyIncidents: hours});
+      })
+
+      requestChartData('/incidents/stats', {
+        'group-by': 'day',
+        'locs': [],
+        'filters': []
+      })
+      .then(response => {
+        const days = response.data;
+        this.setState({dailyIncidents: days});
       })
 
     // requests to fill the chart on the right panel
@@ -99,7 +110,8 @@ class App extends Component {
   render() {
     const { 
       colors,
-      leftPanelData, 
+      leftPanelData,
+      dailyIncidents,
       hourlyIncidents,
       indexTypes, 
       rightPanelData,
@@ -114,6 +126,7 @@ class App extends Component {
         <LeftPanel 
           chartData={leftPanelData}
           hourlyIncidents={hourlyIncidents}
+          dailyIncidents={dailyIncidents}
           colors={colors} />
         <RightPanel
           indexTypes={indexTypes}

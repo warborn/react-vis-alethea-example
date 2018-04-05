@@ -6,8 +6,9 @@ import {
     LabelSeries,
     Hint
   } from 'react-vis';
+  import { convertDayToLabel, convertHourToLabel } from '../utils';
 
-class HourlyIncidentsChart extends Component {
+class IncidentsChart extends Component {
   constructor() {
     super();
 
@@ -16,27 +17,34 @@ class HourlyIncidentsChart extends Component {
     }
   }
 
-  _getLabel(hour) {
-    let h = hour % 12 || 12;
-    let ampm = (hour < 12 || hour === 11) ? 'am' : 'pm';
-    return h + ampm;
-  }
-
-  _getCircles = (hours) => {
+  _getCircles = (points) => {
     // to draw a circle react-vis needs an array of objects with the following form:
     // [
     //     {x: val, y: val, size: val},
     //     {x: val, y: val, size: val},
     //     {x: val, y: val, size: val},
     // ]
-    return hours.slice(9, 19)
+    const { type } = this.props;
+
+    if(type === 'daily') {
+      return points
+        .map(day => ({
+          x: day.day, 
+          y: 0, 
+          label: convertDayToLabel(day.day), 
+          size: day.incidents,
+          style: {fontSize: 10, fontWeight: 'bold'}
+        }))
+    } else if(type === 'hourly') {
+      return points.slice(9, 19)
       .map(hour => ({
         x: hour.hour, 
         y: 0, 
-        label: this._getLabel(hour.hour), 
+        label: convertHourToLabel(hour.hour), 
         size: hour.incidents,
         style: {fontSize: 10, fontWeight: 'bold'}
       }))
+    }
   }
 
   _rememberValue = (value) => {
@@ -89,10 +97,11 @@ class HourlyIncidentsChart extends Component {
   }
 }
 
-HourlyIncidentsChart.propTypes = {
+IncidentsChart.propTypes = {
   data: PropTypes.array.isRequired,
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  height: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired
 }
 
-export default HourlyIncidentsChart;
+export default IncidentsChart;

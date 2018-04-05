@@ -68,3 +68,13 @@ export function getMonthName(dateNumber) {
 export function stripPosfix(str) {
   return str.replace(/_[a-z0-9]+$/i, '');
 }
+
+export function convertHourToLabel(hour) {
+  let h = hour % 12 || 12;
+  let ampm = (hour < 12 || hour === 11) ? 'am' : 'pm';
+  return h + ampm;
+}
+
+export function convertDayToLabel(day) {
+  return ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'][day - 1];
+}

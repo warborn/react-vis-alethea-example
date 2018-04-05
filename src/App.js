@@ -56,7 +56,7 @@ class App extends Component {
 
     requestChartData('/incidents/historic', {
       // 'locs': ['1kbRjGIBu6PdcGK8sOH-', '2DDVaGIBAxn0xNdLfvl2'],
-      'locs': ['7BNOkmIBqBJkAKqCgWl0'],
+      'locs': ['iBNRkmIBqBJkAKqCq3BJ'],
       'filters': ['robbery without violence', 'kidnapping']
     })
     .then(response => {

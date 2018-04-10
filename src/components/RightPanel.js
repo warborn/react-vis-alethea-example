@@ -34,7 +34,7 @@ const RightPanel = (props) => {
                 height={200}
                 data={incidentsByCrimeData}
                 // selectedLocations={['1kbRjGIBu6PdcGK8sOH-']}
-                selectedLocations={['iBNRkmIBqBJkAKqCq3BJ']}
+                selectedLocations={['OhWBrGIByY4u4kozCepw']} // hardcoded ID for mexico city
                 crimeTypes={[...selectedCrimes]}
                 colors={colors} />
             </div>

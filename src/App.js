@@ -67,7 +67,7 @@ class App extends Component {
 
     requestChartData('/incidents/historic', {
       // 'locs': ['1kbRjGIBu6PdcGK8sOH-', '2DDVaGIBAxn0xNdLfvl2'],
-      'locs': ['iBNRkmIBqBJkAKqCq3BJ'],
+      'locs': ['OhWBrGIByY4u4kozCepw'], // hardcoded ID for mexico city
       'filters': ['robbery without violence', 'kidnapping']
     })
     .then(response => {
